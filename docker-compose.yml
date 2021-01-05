@@ -16,7 +16,8 @@ services:
       - rapture
 
   php:
-    image: php:7.3-fpm
+    build:
+      context: ./server/php/
     volumes:
       - ./app:/var/www/html/
       - ./server/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
