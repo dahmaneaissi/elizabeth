@@ -1,3 +1,8 @@
 # Elizabeth Docker
 
-A city beneath the ocean?.... Ridiculous.
+<p>
+Up for the first time:
+</>
+<code>
+    USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose up
+</code>

@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 networks:
   rapture:
 
@@ -18,6 +18,9 @@ services:
   php:
     build:
       context: ./server/php/
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
     volumes:
       - ./app:/var/www/html/
       - ./server/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
