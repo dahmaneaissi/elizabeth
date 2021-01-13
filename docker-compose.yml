@@ -8,8 +8,9 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./server/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./server/apache/my-httpd.conf:/usr/local/apache2/conf/httpd.conf
       - ./server/apache/vhost.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+      - ./app:/usr/local/apache2/htdocs
     depends_on:
       - php
     networks:
@@ -23,18 +24,22 @@ services:
         GROUP_ID: ${GROUP_ID}
     volumes:
       - ./app:/var/www/html/
+      - ./server/php/php.ini-development:/usr/local/etc/php/php.ini
       - ./server/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    ports:
+      - "9000:9000"
     networks:
       - rapture
 
   db:
     image: mysql
     hostname: db
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app_db
     volumes:
       - ./server/db_data:/var/lib/mysql
     networks:
